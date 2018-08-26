@@ -1,4 +1,4 @@
-# react-firebase-example
+# react-firebase-events-board
 
 ## node and npm version
 * node version 8.11.4 LTS  
