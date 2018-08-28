@@ -33,3 +33,7 @@
 ![Login](./res/Login.png)
 
 ![CreateEvent](./res/CreateEvent.png)
+
+![CreateEvent](./res/EventDetailed.png)
+
+![CreateEvent](./res/EventChat.png)
