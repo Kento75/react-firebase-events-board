@@ -1,8 +1,8 @@
-import React from "react";
-import { Menu, Dropdown, Image } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Menu, Image, Dropdown } from 'semantic-ui-react';
+import { Link } from 'react-router-dom'
 
-const SignedInMenu = ({ signOut }) => {
+const SignedInMenu = ({signOut}) => {
   return (
     <Menu.Item position="right">
       <Image avatar spaced="right" src="/assets/user.png" />

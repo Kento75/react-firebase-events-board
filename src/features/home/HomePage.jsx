@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const HomePage = ({history}) => {
   return (
@@ -20,16 +20,16 @@ const HomePage = ({history}) => {
           </div>
         </div>
       </div>
-      <div style={{ textAlign: "center" }}>
-        Icons made by{" "}
+      <div style={{ textAlign: 'center' }}>
+        Icons made by{' '}
         <a href="http://www.freepik.com" title="Freepik">
           Freepik
-        </a>{" "}
-        from{" "}
+        </a>{' '}
+        from{' '}
         <a href="https://www.flaticon.com/" title="Flaticon">
           www.flaticon.com
-        </a>{" "}
-        is licensed by{" "}
+        </a>{' '}
+        is licensed by{' '}
         <a
           href="http://creativecommons.org/licenses/by/3.0/"
           title="Creative Commons BY 3.0"
