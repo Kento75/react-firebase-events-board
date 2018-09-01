@@ -46,7 +46,7 @@ setting.json
 ## GCP stack
 * Maps JavaScript API  
 * Places API  
-
+* Geocoding API  
 
 ## Views
 
