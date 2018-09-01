@@ -39,9 +39,14 @@ setting.json
 
 ## stack
 * React16  
-* Redux16  
+* Redux  
 * Firebase  
 * etc
+
+## GCP stack
+* Maps JavaScript API  
+* Places API  
+
 
 ## Views
 
