@@ -20,6 +20,23 @@
 * Prettier-Code formatter  
 * React Redux Firestore Course Snippets  
 
+## VScode Setting
+
+setting.json
+
+```
+{
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.tabSize": 2,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "emmet.triggerExpansionOnTab": true
+}
+```
+
 ## stack
 * React16  
 * Redux16  
