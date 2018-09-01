@@ -50,12 +50,14 @@ setting.json
 
 ## Views
 
-![Home](./res/home.png)
+![Home](./res/Home.png)
 
-![Login](./res/Login.png)
+![EventDashBoard](./res/EventDashBoard.png)
 
 ![CreateEvent](./res/CreateEvent.png)
 
-![CreateEvent](./res/EventDetailed.png)
+![EventDetail](./res/EventDetail.png)
 
-![CreateEvent](./res/EventChat.png)
+![EventChat](./res/EventChat.png)
+
+![ShowGoogleMap](./res/ShowGoogleMap.png)
