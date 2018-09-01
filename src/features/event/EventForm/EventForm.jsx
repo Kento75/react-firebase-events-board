@@ -1,8 +1,17 @@
+/*global google*/
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import moment from "moment";
-import { composeValidators, combineValidators, isRequired, hasLengthGreaterThan } from "revalidate";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import Script from "react-load-script";
+import { PLACES_API_KEY } from "../../../app/common/keys/appid";
+import {
+  composeValidators,
+  combineValidators,
+  isRequired,
+  hasLengthGreaterThan
+} from "revalidate";
 import cuid from "cuid";
 import { Segment, Form, Button, Grid, Header } from "semantic-ui-react";
 import { createEvent, updateEvent } from "../eventActions";
@@ -23,7 +32,7 @@ const mapState = (state, ownProps) => {
 
   return {
     initialValues: event
-  }
+  };
 };
 
 const actions = {
@@ -32,28 +41,51 @@ const actions = {
 };
 
 const category = [
-    {key: 'drinks', text: 'Drinks', value: 'drinks'},
-    {key: 'culture', text: 'Culture', value: 'culture'},
-    {key: 'film', text: 'Film', value: 'film'},
-    {key: 'food', text: 'Food', value: 'food'},
-    {key: 'music', text: 'Music', value: 'music'},
-    {key: 'travel', text: 'Travel', value: 'travel'},
+  { key: "drinks", text: "Drinks", value: "drinks" },
+  { key: "culture", text: "Culture", value: "culture" },
+  { key: "film", text: "Film", value: "film" },
+  { key: "food", text: "Food", value: "food" },
+  { key: "music", text: "Music", value: "music" },
+  { key: "travel", text: "Travel", value: "travel" }
 ];
 
 const validate = combineValidators({
-  title: isRequired({message: 'The event title is required'}),
-  category: isRequired({message: 'Please provide a category'}),
+  title: isRequired({ message: "The event title is required" }),
+  category: isRequired({ message: "Please provide a category" }),
   description: composeValidators(
-    isRequired({message: 'Please enter a description'}),
-    hasLengthGreaterThan(4)({message: 'Description needs to be at least 5 characters'}),
+    isRequired({ message: "Please enter a description" }),
+    hasLengthGreaterThan(4)({
+      message: "Description needs to be at least 5 characters"
+    })
   )(),
-  city: isRequired('city'),
-  venue: isRequired('venue'),
-  date: isRequired('date')
-})
+  city: isRequired("city"),
+  venue: isRequired("venue"),
+  date: isRequired("date")
+});
 
 class EventForm extends Component {
-  onFormSubmit = values => {    
+  state = {
+    cityLatLng: {},
+    venueLatLng: {},
+    scriptLoaded: false
+  };
+
+  handleScriptLoaded = () => this.setState({ scriptLoaded: true });
+
+  handleCitySelect = selectedCity => {
+    geocodeByAddress(selectedCity)
+      .then(results => getLatLng(results[0]))
+      .then(latlng => {
+        this.setState({
+          cityLatLng: latlng
+        });
+      })
+      .then(() => {
+        this.props.change("city", selectedCity);
+      })
+  };
+
+  onFormSubmit = values => {
     values.date = moment(values.date).format();
     if (this.props.initialValues.id) {
       this.props.updateEvent(values);
@@ -63,7 +95,7 @@ class EventForm extends Component {
         ...values,
         id: cuid(),
         hostPhotoURL: "/assets/user.png",
-        hostedBy: 'Bob'
+        hostedBy: "Bob"
       };
       this.props.createEvent(newEvent);
       this.props.history.push("/events");
@@ -71,9 +103,13 @@ class EventForm extends Component {
   };
 
   render() {
-    const {invalid, submitting, pristine} = this.props;
+    const { invalid, submitting, pristine } = this.props;
     return (
       <Grid>
+        <Script
+          url={`https://maps.googleapis.com/maps/api/js?key=${PLACES_API_KEY}&libraries=places`}
+          onLoad={this.handleScriptLoaded}
+        />
         <Grid.Column width={10}>
           <Segment>
             <Header sub color="teal" content="Event Details" />
@@ -103,16 +139,23 @@ class EventForm extends Component {
                 name="city"
                 type="text"
                 component={PlaceInput}
-                options={{types: ["(cities)"]}}
+                options={{ types: ["(cities)"] }}
                 placeholder="Event City"
+                onSelect={this.handleCitySelect}
               />
-              <Field
-                name="venue"
-                type="text"
-                component={PlaceInput}
-                options={{types: ["establishment"]}}
-                placeholder="Event Venue"
-              />
+              {this.state.scriptLoaded && (
+                <Field
+                  name="venue"
+                  type="text"
+                  component={PlaceInput}
+                  options={{
+                    location: new google.maps.LatLng(this.state.cityLatLng),
+                    radius: 1000,
+                    types: ["establishment"]
+                  }}
+                  placeholder="Event Venue"
+                />
+              )}
               <Field
                 name="date"
                 type="text"
@@ -122,7 +165,11 @@ class EventForm extends Component {
                 showTimeSelect
                 placeholder="Date and Time of event"
               />
-              <Button disabled={invalid || submitting || pristine} positive type="submit">
+              <Button
+                disabled={invalid || submitting || pristine}
+                positive
+                type="submit"
+              >
                 Submit
               </Button>
               <Button onClick={this.props.history.goBack} type="button">
@@ -139,4 +186,8 @@ class EventForm extends Component {
 export default connect(
   mapState,
   actions
-)(reduxForm({ form: "eventForm", enableReinitialize: true, validate })(EventForm));
+)(
+  reduxForm({ form: "eventForm", enableReinitialize: true, validate })(
+    EventForm
+  )
+);
