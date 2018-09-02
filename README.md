@@ -54,6 +54,10 @@ setting.json
 
 ![EventDashBoard](./res/EventDashBoard.png)
 
+![UserCreate](./res/UserCreate.png)
+
+![SignIn](./res/SignIn.png)
+
 ![CreateEvent](./res/CreateEvent.png)
 
 ![EventDetail](./res/EventDetail.png)
