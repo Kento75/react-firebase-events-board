@@ -1,7 +1,7 @@
 import React from "react";
 import { Segment, Icon } from "semantic-ui-react";
 import GoogleMapReact from 'google-map-react';
-import { PLACES_API_KEY } from "../../../app/common/keys/appid";
+import { PLACES_API_KEY } from "../../../app/config/mapid";
 
 const Marker = () => <Icon name="marker" size="big" color="red" />
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Label } from "semantic-ui-react";
 import Script from "react-load-script";
 import PlacesAutocomplate from "react-places-autocomplete";
-import { PLACES_API_KEY } from "../keys/appid";
+import { PLACES_API_KEY } from "../../config/mapid";
 
 const styles = {
   autocompleteContainer: {

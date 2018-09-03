@@ -5,7 +5,7 @@ import { reduxForm, Field } from "redux-form";
 import moment from "moment";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Script from "react-load-script";
-import { PLACES_API_KEY } from "../../../app/common/keys/appid";
+import { PLACES_API_KEY } from "../../../app/config/mapid";
 import {
   composeValidators,
   combineValidators,
