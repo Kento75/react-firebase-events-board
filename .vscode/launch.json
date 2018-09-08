@@ -10,12 +10,6 @@
       "name": "localhost に対して Chrome を起動",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/src"
-    },
-    "emmet.syntaxProfiles": {
-      "jsx": {
-          "self_closing_tag": true
-      }
     }
-  },
   ]
 }
