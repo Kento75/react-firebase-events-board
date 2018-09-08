@@ -41,6 +41,7 @@ setting.json
 * React16  
 * Redux  
 * Firebase  
+* Cloudinary
 * etc
 
 ## GCP stack
