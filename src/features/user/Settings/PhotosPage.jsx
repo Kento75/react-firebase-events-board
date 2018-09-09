@@ -42,7 +42,7 @@ const mapState = state => ({
 class PhotosPage extends Component {
   state = {
     files: [],
-    fileName: "",
+    imageName: "",
     cropResult: null,
     image: {}
   };
@@ -51,7 +51,7 @@ class PhotosPage extends Component {
     try {
       await this.props.uploadProfileImage(
         this.state.image,
-        this.state.fileName
+        this.state.imageName
       );
       this.cancelCrop();
       toastr.success("Success!", "Photo has been uploaded");
@@ -84,7 +84,7 @@ class PhotosPage extends Component {
   onDrop = files => {
     this.setState({
       files,
-      fileName: files[0].name
+      imageName: files[0].name
     });
   };
 
