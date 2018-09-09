@@ -1,25 +1,25 @@
 /*global google*/
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
-import moment from "moment";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import Script from "react-load-script";
-import { PLACES_API_KEY } from "../../../app/config/mapid";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { reduxForm, Field } from 'redux-form';
+import moment from 'moment';
+import cuid from 'cuid';
+import Script from 'react-load-script';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { Segment, Form, Button, Grid, Header } from 'semantic-ui-react';
 import {
   composeValidators,
   combineValidators,
   isRequired,
   hasLengthGreaterThan
-} from "revalidate";
-import cuid from "cuid";
-import { Segment, Form, Button, Grid, Header } from "semantic-ui-react";
-import { createEvent, updateEvent } from "../eventActions";
-import TextInput from "../../../app/common/form/TextInput";
-import TextArea from "../../../app/common/form/TextArea";
-import SelectInput from "../../../app/common/form/SelectInput";
-import DateInput from "../../../app/common/form/DateInput";
-import PlaceInput from "../../../app/common/form/PlaceInput";
+} from 'revalidate';
+import { createEvent, updateEvent } from '../eventActions';
+import TextInput from '../../../app/common/form/TextInput';
+import TextArea from '../../../app/common/form/TextArea';
+import SelectInput from '../../../app/common/form/SelectInput';
+import DateInput from '../../../app/common/form/DateInput';
+import PlaceInput from '../../../app/common/form/PlaceInput';
+import { PLACES_API_KEY } from "../../../app/config/mapid";
 
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id;
@@ -41,26 +41,26 @@ const actions = {
 };
 
 const category = [
-  { key: "drinks", text: "Drinks", value: "drinks" },
-  { key: "culture", text: "Culture", value: "culture" },
-  { key: "film", text: "Film", value: "film" },
-  { key: "food", text: "Food", value: "food" },
-  { key: "music", text: "Music", value: "music" },
-  { key: "travel", text: "Travel", value: "travel" }
+  { key: 'drinks', text: 'Drinks', value: 'drinks' },
+  { key: 'culture', text: 'Culture', value: 'culture' },
+  { key: 'film', text: 'Film', value: 'film' },
+  { key: 'food', text: 'Food', value: 'food' },
+  { key: 'music', text: 'Music', value: 'music' },
+  { key: 'travel', text: 'Travel', value: 'travel' }
 ];
 
 const validate = combineValidators({
-  title: isRequired({ message: "The event title is required" }),
-  category: isRequired({ message: "Please provide a category" }),
+  title: isRequired({ message: 'The event title is required' }),
+  category: isRequired({ message: 'Please provide a category' }),
   description: composeValidators(
-    isRequired({ message: "Please enter a description" }),
+    isRequired({ message: 'Please enter a description' }),
     hasLengthGreaterThan(4)({
-      message: "Description needs to be at least 5 characters"
+      message: 'Description needs to be at least 5 characters'
     })
   )(),
-  city: isRequired("city"),
-  venue: isRequired("venue"),
-  date: isRequired("date")
+  city: isRequired('city'),
+  venue: isRequired('venue'),
+  date: isRequired('date')
 });
 
 class EventForm extends Component {
@@ -81,7 +81,7 @@ class EventForm extends Component {
         });
       })
       .then(() => {
-        this.props.change("city", selectedCity);
+        this.props.change('city', selectedCity)
       })
   };
 
@@ -94,7 +94,7 @@ class EventForm extends Component {
         });
       })
       .then(() => {
-        this.props.change("venue", selectedVenue);
+        this.props.change('venue', selectedVenue)
       })
   };
 
@@ -108,11 +108,11 @@ class EventForm extends Component {
       const newEvent = {
         ...values,
         id: cuid(),
-        hostPhotoURL: "/assets/user.png",
-        hostedBy: "Bob"
+        hostPhotoURL: '/assets/user.png',
+        hostedBy: 'Bob'
       };
       this.props.createEvent(newEvent);
-      this.props.history.push("/events");
+      this.props.history.push('/events');
     }
   };
 
@@ -144,33 +144,32 @@ class EventForm extends Component {
               <Field
                 name="description"
                 type="text"
-                rows={3}
                 component={TextArea}
+                rows={3}
                 placeholder="Tell us about your event"
               />
-              <Header sub color="teal" content="Event Location Details" />
+              <Header sub color="teal" content="Event Location details" />
               <Field
                 name="city"
                 type="text"
                 component={PlaceInput}
-                options={{ types: ["(cities)"] }}
-                placeholder="Event City"
+                options={{ types: ['(cities)'] }}
+                placeholder="Event city"
                 onSelect={this.handleCitySelect}
               />
-              {this.state.scriptLoaded && (
-                <Field
-                  name="venue"
-                  type="text"
-                  component={PlaceInput}
-                  options={{
-                    location: new google.maps.LatLng(this.state.cityLatLng),
-                    radius: 1000,
-                    types: ["establishment"]
-                  }}
-                  placeholder="Event Venue"
-                  onSelect={this.handleVenueSelect}
-                />
-              )}
+              {this.state.scriptLoaded &&
+              <Field
+                name="venue"
+                type="text"
+                component={PlaceInput}
+                options={{
+                  location: new google.maps.LatLng(this.state.cityLatLng),
+                  radius: 1000,
+                  types: ['establishment']
+                }}
+                placeholder="Event venue"
+                onSelect={this.handleVenueSelect}
+              />}
               <Field
                 name="date"
                 type="text"
@@ -178,7 +177,7 @@ class EventForm extends Component {
                 dateFormat="YYYY-MM-DD HH:mm"
                 timeFormat="HH:mm"
                 showTimeSelect
-                placeholder="Date and Time of event"
+                placeholder="Date and time of event"
               />
               <Button
                 disabled={invalid || submitting || pristine}
@@ -198,11 +197,8 @@ class EventForm extends Component {
   }
 }
 
-export default connect(
-  mapState,
-  actions
-)(
-  reduxForm({ form: "eventForm", enableReinitialize: true, validate })(
+export default connect(mapState, actions)(
+  reduxForm({ form: 'eventForm', enableReinitialize: true, validate })(
     EventForm
   )
 );

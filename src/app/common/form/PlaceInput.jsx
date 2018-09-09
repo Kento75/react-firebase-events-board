@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Form, Label } from "semantic-ui-react";
-import Script from "react-load-script";
-import PlacesAutocomplate from "react-places-autocomplete";
+import React, { Component } from 'react';
+import { Form, Label } from 'semantic-ui-react';
+import Script from 'react-load-script';
+import PlacesAutocomplete from 'react-places-autocomplete';
 import { PLACES_API_KEY } from "../../config/mapid";
 
 const styles = {
@@ -33,14 +33,13 @@ class PlaceInput extends Component {
           onLoad={this.handleScriptLoaded}
         />
         {this.state.scriptLoaded && (
-          <PlacesAutocomplate
+          <PlacesAutocomplete
             inputProps={{ ...input, placeholder }}
             options={options}
             onSelect={onSelect}
             styles={styles}
           />
         )}
-
         {touched &&
           error && (
             <Label basic color="red">

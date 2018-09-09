@@ -1,11 +1,11 @@
-import { createReducer } from "../../app/common/util/reducerUtil";
-import { ASYNC_ACTION_ERROR, ASYNC_ACTION_FINISH, ASYNC_ACTION_START } from "./asyncConstants";
+import { createReducer } from '../../app/common/util/reducerUtil';
+import { ASYNC_ACTION_START, ASYNC_ACTION_FINISH, ASYNC_ACTION_ERROR } from './asyncConstants';
 
 const initialState = {
   loading: false
 }
 
-export const asyncActionStarted = (state) => {
+export const asyncActionStarted = (state, payload) => {
   return {...state, loading: true}
 }
 

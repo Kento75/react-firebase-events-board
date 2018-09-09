@@ -1,6 +1,6 @@
-import { ASYNC_ACTION_ERROR, ASYNC_ACTION_FINISH, ASYNC_ACTION_START } from "./asyncConstants";
+import { ASYNC_ACTION_ERROR, ASYNC_ACTION_FINISH, ASYNC_ACTION_START } from './asyncConstants';
 
-export const aysncActionStart = () => {
+export const asyncActionStart = () => {
   return {
     type: ASYNC_ACTION_START
   }
@@ -12,7 +12,7 @@ export const asyncActionFinish = () => {
   }
 }
 
-export const aysncActionError = () => {
+export const asyncActionError = () => {
   return {
     type: ASYNC_ACTION_ERROR
   }
