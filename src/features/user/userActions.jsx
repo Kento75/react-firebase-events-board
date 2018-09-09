@@ -1,7 +1,11 @@
-import moment from 'moment';
-import { toastr } from 'react-redux-toastr';
-import cuid from 'cuid';
-import { asyncActionError, asyncActionStart, asyncActionFinish } from '../async/asyncActions'
+import moment from "moment";
+import { toastr } from "react-redux-toastr";
+import cuid from "cuid";
+import {
+  asyncActionError,
+  asyncActionStart,
+  asyncActionFinish
+} from "../async/asyncActions";
 
 export const updateProfile = user => async (
   dispatch,
@@ -16,7 +20,7 @@ export const updateProfile = user => async (
 
   try {
     await firebase.updateProfile(updatedUser);
-    toastr.success('Success', 'Profile updated');
+    toastr.success("Success", "Profile updated");
   } catch (error) {
     console.log(error);
   }
@@ -52,47 +56,56 @@ export const uploadProfileImage = (file, fileName) => async (
       });
     }
     // add the new photo to photos collection
-    await firestore.add({
-      collection: 'users',
-      doc: user.uid,
-      subcollections: [{collection: 'photos'}]
-    }, {
-      name: imageName,
-      url: downloadURL
-    })
+    await firestore.add(
+      {
+        collection: "users",
+        doc: user.uid,
+        subcollections: [{ collection: "photos" }]
+      },
+      {
+        name: imageName,
+        url: downloadURL
+      }
+    );
   } catch (error) {
     console.log(error);
-    throw new Error('Problem uploading photo')
+    throw new Error("Problem uploading photo");
   }
 };
 
-export const deletePhoto = (photo) => 
-  async (dispatch, getState, {getFirebase, getFirestore}) => {
-    const firebase = getFirebase();
-    const firestore = getFirestore();
-    const user = firebase.auth().currentUser;
-    try {
-      await firebase.deleteFile(`${user.uid}/user_images/${photo.name}`)
-      await firestore.delete({
-        collection: 'users',
-        doc: user.uid,
-        subcollections: [{collection: 'photos', doc: photo.id}]
-      })
-    } catch (error) {
-      console.log(error);
-      throw new Error('Problem deleting the photo')
-    }
+export const deletePhoto = photo => async (
+  dispatch,
+  getState,
+  { getFirebase, getFirestore }
+) => {
+  const firebase = getFirebase();
+  const firestore = getFirestore();
+  const user = firebase.auth().currentUser;
+  try {
+    await firebase.deleteFile(`${user.uid}/user_images/${photo.name}`);
+    await firestore.delete({
+      collection: "users",
+      doc: user.uid,
+      subcollections: [{ collection: "photos", doc: photo.id }]
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error("Problem deleting the photo");
   }
+};
 
-export const setMainPhoto = photo =>
-  async (dispatch, getState, {getFirebase}) => {
-    const firebase = getFirebase();
-    try {
-      return await firebase.updateProfile({
-        photoURL: photo.url
-      })
-    } catch (error) {
-      console.log(error);
-      throw new Error('Problem setting main photo')
-    }
+export const setMainPhoto = photo => async (
+  dispatch,
+  getState,
+  { getFirebase }
+) => {
+  const firebase = getFirebase();
+  try {
+    return await firebase.updateProfile({
+      photoURL: photo.url
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error("Problem setting main photo");
   }
+};
