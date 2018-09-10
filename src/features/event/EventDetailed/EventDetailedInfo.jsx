@@ -22,6 +22,10 @@ class EventDetailedInfo extends Component {
 
   render() {
     const { event } = this.props;
+    let eventDate;
+    if (event.date) {
+      eventDate = event.date.toDate()
+    }
     return (
       <Segment.Group>
         <Segment attached="top">
@@ -40,7 +44,7 @@ class EventDetailedInfo extends Component {
               <Icon name="calendar" size="large" color="teal" />
             </Grid.Column>
             <Grid.Column width={15}>
-              <span>{format(event.date, 'dddd Do MMM')} at {format(event.date, 'h:mm A')}</span>
+              <span>{format(eventDate, 'dddd Do MMM')} at {format(eventDate, 'h:mm A')}</span>
             </Grid.Column>
           </Grid>
         </Segment>
