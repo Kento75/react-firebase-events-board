@@ -1,6 +1,5 @@
 import { toastr } from 'react-redux-toastr'
 import {
-  CREATE_EVENT,
   DELETE_EVENT,
   UPDATE_EVENT,
   FETCH_EVENTS
