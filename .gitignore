@@ -23,3 +23,9 @@ yarn-error.log*
 # My env files
 mapid.js
 firebase.js
+firebase.rules.json
+database.rules.json
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
