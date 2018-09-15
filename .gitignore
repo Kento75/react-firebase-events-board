@@ -26,10 +26,10 @@ mapid.js
 # My firebase Setting files
 firebase.js
 .firebaserc
-firebase.rules.json
-database.rules.json
+#firebase.rules.json
+#database.rules.json
 firebase.json
-firestore.indexes.json
-firestore.rules
-storage.rules
+#firestore.indexes.json
+#firestore.rules
+#storage.rules
 .firebase/
