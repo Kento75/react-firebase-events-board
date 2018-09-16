@@ -1,0 +1,10 @@
+{
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.tabSize": 2,
+  "explorer.confirmDragAndDrop": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "emmet.includeLanguages": {
+      "javascript": "javascriptreact"
+  },
+  "emmet.triggerExpansionOnTab": true
+}
