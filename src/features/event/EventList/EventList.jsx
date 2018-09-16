@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import EventListItem from "./EventListItem";
-import InfiniteScroll from "react-infinite-scroller";
+import React, { Component } from 'react';
+import EventListItem from './EventListItem';
+import InfiniteScroll from 'react-infinite-scroller';
 
 class EventList extends Component {
   render() {
@@ -15,13 +15,7 @@ class EventList extends Component {
               hasMore={!loading && moreEvents}
               initialLoad={false}
             >
-              {events &&
-                events.map(event => (
-                  <EventListItem
-                    key={event.id}
-                    event={event}
-                  />
-                ))}
+              {events && events.map(event => <EventListItem key={event.id} event={event}/>)}
             </InfiniteScroll>
           )}
       </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Header, Segment, Feed, Sticky } from 'semantic-ui-react'
-import EventActivityItem from "./EventActivityItem";
+import EventActivityItem from './EventActivityItem'
+
 
 const EventActivity = ({activities, contextRef}) => {
   return (
@@ -8,8 +9,8 @@ const EventActivity = ({activities, contextRef}) => {
       <Header attached='top' content='Recent Activity'/>
       <Segment attached>
         <Feed>
-          {activities && activities.map(activity => (
-            <EventActivityItem key={activity.id} activity={activity} />
+          {activities && activities.map((activity) => (
+            <EventActivityItem key={activity.id} activity={activity}/>
           ))}
         </Feed>
       </Segment>

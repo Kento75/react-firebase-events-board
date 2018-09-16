@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { Grid, Loader } from "semantic-ui-react";
-import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { getEventsForDashboard } from "../eventActions";
-import EventList from "../EventList/EventList";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
-import EventActivity from "../EventActivity/EventActivity";
+import React, { Component } from 'react';
+import { Grid, Loader } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { getEventsForDashboard } from '../eventActions';
+import EventList from '../EventList/EventList';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
+import EventActivity from '../EventActivity/EventActivity';
 
 const query = [
   {
-    collection: "activity",
-    orderBy: ["timestamp", "desc"],
+    collection: 'activity',
+    orderBy: ['timestamp', 'desc'],
     limit: 5
   }
 ]
@@ -63,7 +63,7 @@ class EventDashboard extends Component {
     }
   };
 
-  handleContextRef = contextRef => this.setState({contextRef});
+  handleContextRef = contextRef => this.setState({contextRef})
 
   render() {
     const { loading, activities } = this.props;
@@ -73,27 +73,25 @@ class EventDashboard extends Component {
     return (
       <Grid>
         <Grid.Column width={10}>
-        <div ref={this.handleContextRef}>
-        <EventList
+          <div ref={this.handleContextRef}>
+          <EventList
             loading={loading}
             moreEvents={moreEvents}
             events={loadedEvents}
             getNextEvents={this.getNextEvents}
           />
-        </div>
+          </div>
+
         </Grid.Column>
         <Grid.Column width={6}>
-          <EventActivity activities={activities} contextRef={this.state.contextRef}/>
+          <EventActivity activities={activities} contextRef={this.state.contextRef} />
         </Grid.Column>
         <Grid.Column width={10}>
-          <Loader active={loading} />
+          <Loader active={loading}/>
         </Grid.Column>
       </Grid>
     );
   }
 }
 
-export default connect(
-  mapState,
-  actions
-)(firestoreConnect(query)(EventDashboard));
+export default connect(mapState, actions)(firestoreConnect(query)(EventDashboard));
