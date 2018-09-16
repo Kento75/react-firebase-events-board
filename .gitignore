@@ -33,3 +33,4 @@ firebase.json
 #firestore.rules
 #storage.rules
 .firebase/
+functions/node_modules/**
