@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Loader } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
+import { firestoreConnect } from "react-redux-firebase";
 import { getEventsForDashboard } from "../eventActions";
 import EventList from "../EventList/EventList";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -29,12 +29,12 @@ class EventDashboard extends Component {
   state = {
     moreEvents: false,
     loadingInitial: true,
-    loadedEvents: []
+    loadedEvents: [],
+    contextRef: {}
   };
 
   async componentDidMount() {
     let next = await this.props.getEventsForDashboard();
-    console.log(next);
 
     if (next && next.docs && next.docs.length > 1) {
       this.setState({
@@ -55,15 +55,15 @@ class EventDashboard extends Component {
   getNextEvents = async () => {
     const { events } = this.props;
     let lastEvent = events && events[events.length - 1];
-    console.log(lastEvent);
     let next = await this.props.getEventsForDashboard(lastEvent);
-    console.log(next);
     if (next && next.docs && next.docs.length <= 1) {
       this.setState({
         moreEvents: false
       });
     }
   };
+
+  handleContextRef = contextRef => this.setState({contextRef});
 
   render() {
     const { loading, activities } = this.props;
@@ -73,15 +73,17 @@ class EventDashboard extends Component {
     return (
       <Grid>
         <Grid.Column width={10}>
-          <EventList
+        <div ref={this.handleContextRef}>
+        <EventList
             loading={loading}
             moreEvents={moreEvents}
             events={loadedEvents}
             getNextEvents={this.getNextEvents}
           />
+        </div>
         </Grid.Column>
         <Grid.Column width={6}>
-          <EventActivity activities={activities} />
+          <EventActivity activities={activities} contextRef={this.state.contextRef}/>
         </Grid.Column>
         <Grid.Column width={10}>
           <Loader active={loading} />
