@@ -80,9 +80,6 @@ const EventDetailedHeader = ({
             Manage Event
           </Button>
         )}
-        <Button as={Link} to={`/manage/${event.id}`} color="orange">
-          Manage Event
-        </Button>
       </Segment>
     </Segment.Group>
   );
