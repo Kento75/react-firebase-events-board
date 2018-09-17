@@ -22,7 +22,8 @@ service cloud.firestore {
       allow read;
       allow create: if request.auth.uid != null;
       allow write: if request.auth.uid != null
-        && (('attendees.' + request.auth.uid) in request.writeFields);
+        && (('attendees.' + request.auth.uid) in request.writeFields)
+        || (('attendees.' + request.auth.uid + '.photoURL') in request.writeFields);
       allow update: if resource.data.hostUid == request.auth.uid;
     }
     match /event_attendee/{allDocs=**} {
