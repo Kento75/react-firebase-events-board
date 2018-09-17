@@ -2,7 +2,7 @@
 
 https://revents-215111.firebaseapp.com/  
 
-login id: demouser  
+email   : demouser@example.com  
 password: demouser    
 
 ## node and npm version
