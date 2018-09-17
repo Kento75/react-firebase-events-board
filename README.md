@@ -3,7 +3,7 @@
 https://revents-215111.firebaseapp.com/  
 
 email   : demouser@example.com  
-password: demouser    
+password: demouser  
 
 ## node and npm version
 * node version 8.11.4 LTS  
