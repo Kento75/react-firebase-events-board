@@ -52,7 +52,7 @@ class EventDetailedPage extends Component {
     const { firestore, match } = this.props;
     let event = await firestore.get(`events/${match.params.id}`);
     if (!event.exists) {
-      toastr.error("Not found", "This is not the event you are looking for");
+      toastr.error("Not Found", "This is not the event you are looking for");
       this.props.history.push("/error");
     }
     await firestore.setListener(`events/${match.params.id}`);
