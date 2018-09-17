@@ -8,6 +8,7 @@ import EventDetailedHeader from "./EventDetailedHeader";
 import EventDetailedInfo from "./EventDetailedInfo";
 import EventDetailedChat from "./EventDetailedChat";
 import EventDetailedSidebar from "./EventDetailedSidebar";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {
   objectToArray,
   createDataTree
@@ -24,6 +25,7 @@ const mapState = (state, ownProps) => {
   }
 
   return {
+    requesting: state.firestore.status.requesting,
     event,
     loading: state.async.loading,
     auth: state.firebase.auth,
@@ -41,6 +43,11 @@ const actions = {
 };
 
 class EventDetailedPage extends Component {
+
+  state = {
+    initialLoading: true
+  }
+
   async componentDidMount() {
     const { firestore, match } = this.props;
     let event = await firestore.get(`events/${match.params.id}`);
@@ -49,6 +56,9 @@ class EventDetailedPage extends Component {
       this.props.history.push("/error");
     }
     await firestore.setListener(`events/${match.params.id}`);
+    this.setState({
+      initialLoading: false
+    })
   }
 
   async componentWillUnmount() {
@@ -65,7 +75,9 @@ class EventDetailedPage extends Component {
       goingToEvent,
       cancelGoingToEvent,
       addEventComment,
-      eventChat
+      eventChat,
+      requesting,
+      match
     } = this.props;
     const attendees =
       event && event.attendees && objectToArray(event.attendees);
@@ -73,6 +85,9 @@ class EventDetailedPage extends Component {
     const isGoing = attendees && attendees.some(a => a.id === auth.uid);
     const chatTree = !isEmpty(eventChat) && createDataTree(eventChat);
     const authenticated = auth.isLoaded && !auth.isEmpty;
+    const loadingEvent = requesting[`events/${match.params.id}`];
+
+    if (loadingEvent || this.state.initialLoading) return <LoadingComponent inverted={true} />
     return (
       <Grid>
         <Grid.Column width={10}>
