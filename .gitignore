@@ -22,6 +22,7 @@ yarn-error.log*
 
 # My env files
 mapid.js
+appid.js
 
 # My firebase Setting files
 firebase.js
