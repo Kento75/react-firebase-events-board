@@ -41,6 +41,11 @@ class EventDashboard extends Component {
         moreEvents: true,
         loadingInitial: false
       });
+    } else {
+      this.setState({
+        moreEvents: false,
+        loadingInitial: false
+      })
     }
   }
 

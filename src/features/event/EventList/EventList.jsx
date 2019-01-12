@@ -8,7 +8,7 @@ class EventList extends Component {
     return (
       <div>
         {events &&
-          events.length !== 0 && (
+          events.length !== 0 ? (
             <InfiniteScroll
               pageStart={0}
               loadMore={getNextEvents}
@@ -17,6 +17,10 @@ class EventList extends Component {
             >
               {events && events.map(event => <EventListItem key={event.id} event={event}/>)}
             </InfiniteScroll>
+          )
+          : (<div>
+               <h1>Not Found</h1>
+             </div>
           )}
       </div>
     );
